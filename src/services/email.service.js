@@ -6,7 +6,6 @@ const { EMAIL_CONFIG } = require('../config');
 
 class EmailService {
   constructor() {
-    console.log('EmailService:');
     sgMail.setApiKey(EMAIL_CONFIG.SENDGRID_API_KEY);
   }
 

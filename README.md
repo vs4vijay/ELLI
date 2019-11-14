@@ -14,6 +14,22 @@ A microservice to send out email to users
 
 ---
 
+### Pre-requisite
+
+Create a file `.env` with appropriate ENV. VARIABLES Values. Application reads this value while bootstrapping. e.g. Fill the SandGrid API Key and Template Id.
+
+```
+SENDGRID_API_KEY=""
+NO_REPLY_EMAIL="vijay.soni@srijan.net"
+TEMPLATE_SALE_SUMMARY="d-8ee94062b404488094ee4d1b44fb3d0c"
+APP_URL="https://www.huddl.ai/features"
+SENDER_NAME="Vijay Soni"
+```
+
+- Template is provided in `/templates` folder, Please upload it on SandGrid and get the template id
+
+---
+
 ## Running
 
 ### Run without Docker
@@ -24,7 +40,7 @@ A microservice to send out email to users
 ### Run with Docker
 
 - `docker build -t email-service .`
-- `docker run -p 3333:3333 email-service`
+- `docker run -p 3333:3333 --env-file=".env" email-service`
 
 ---
 
