@@ -1,0 +1,26 @@
+{
+  "name": "EmailService",
+  "version": "1.0.0",
+  "description": "",
+  "repository": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
+    "lint": "eslint ."
+  },
+  "author": "Vijay Soni (vs4vijay@gmail.com)",
+  "license": "MIT",
+  "dependencies": {
+    "@sendgrid/mail": "^6.4.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "eslint": "^6.6.0",
+    "eslint-config-prettier": "^6.4.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "nodemon": "^1.19.2",
+    "prettier": "^1.18.2"
+  }
+}
