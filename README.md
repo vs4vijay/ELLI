@@ -4,6 +4,16 @@ A microservice to send out email to users
 
 ---
 
+## Screenshots
+
+### Email Template
+![](./screenshorts/EmailTemplate.png)
+
+### Actual Email 
+![](./screenshorts/Email1.png)
+
+---
+
 ## Running
 
 ### Run without Docker
@@ -38,7 +48,7 @@ A microservice to send out email to users
 - [ ] Code
   - [x] Use `yarn` instead of `npm`
   - [ ] Validation and Error Frameworks
-  - [ ] Enhance the code structure and decouple
+  - [x] Enhance the code structure and decouple
 
 ---
 
