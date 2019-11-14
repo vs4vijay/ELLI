@@ -36,6 +36,29 @@ A microservice to send out email to users
 
 ---
 
+## API Usage
+
+Request: `POST /api/v1/email`
+Body:
+```javascript
+{
+  "email": "vs4vijay@gmail.com",
+  "metadata": { 
+    "name": "Vijay Soni", 
+    "sale_id": "BigBillionDay101"
+  }
+}
+```
+
+Example:
+```bash
+
+curl -X POST -d '{"email":"vijay.soni@srijan.net","metadata": {"name":"Jay Kumar","sale_id":123}}'  "http://0.0.0.0:3333/api/v1/email" -H "Content-Type: application/json"
+
+```
+
+---
+
 ## To Do
 
 - [x] Basic Node + Express
