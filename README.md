@@ -20,7 +20,7 @@ Create a file `.env` with appropriate ENV. VARIABLES Values. Application reads t
 
 ```
 SENDGRID_API_KEY=""
-NO_REPLY_EMAIL="vijay.soni@srijan.net"
+NO_REPLY_EMAIL="vs4vijay@gmail.com"
 TEMPLATE_SALE_SUMMARY="d-8ee94062b404488094ee4d1b44fb3d0c"
 APP_URL="https://www.huddl.ai/features"
 SENDER_NAME="Vijay Soni"
@@ -69,7 +69,7 @@ Body:
 Example:
 ```bash
 
-curl -X POST -d '{"email":"vijay.soni@srijan.net","metadata": {"name":"Jay Kumar","sale_id":123}}'  "http://0.0.0.0:3333/api/v1/email" -H "Content-Type: application/json"
+curl -X POST -d '{"email":"vs4vijay@gmail.com","metadata": {"name":"Jay Kumar","sale_id":123}}'  "http://0.0.0.0:3333/api/v1/email" -H "Content-Type: application/json"
 
 ```
 
@@ -105,7 +105,7 @@ printWidth: 80
 
 curl -X POST -d '{"metadata": {}}'  "0.0.0.0:3333/api/v1/email" -v -H "Content-Type: application/json"
 
-curl -X POST -d '{"email":"vijay.soni@srijan.net","metadata": {"name":"Jay Kumar","sale_id":888}}'  "0.0.0.0:3333/api/v1/email" -H "Content-Type: application/json"
+curl -X POST -d '{"email":"vs4vijay@gmail.com","metadata": {"name":"Jay Kumar","sale_id":888}}'  "0.0.0.0:3333/api/v1/email" -H "Content-Type: application/json"
 
 
 ```
