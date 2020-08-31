@@ -7,7 +7,7 @@ const { EmailService } = require('../services');
 const emailRouter = express.Router();
 const emailService = new EmailService();
 
-emailRouter.post('/email', (req, res) => {
+emailRouter.post('/mails', (req, res) => {
   console.log('Sending email');
 
   const {

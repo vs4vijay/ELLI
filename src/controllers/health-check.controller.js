@@ -6,8 +6,8 @@ const { CONFIG } = require('../config');
 
 const healthCheckRouter = express.Router();
 
-healthCheckRouter.get('/health_check', (req, res) => {
-  console.log('health_check');
+healthCheckRouter.get('/healthz', (req, res) => {
+  console.log('healthcheck');
 
   const response = {
     success: true,

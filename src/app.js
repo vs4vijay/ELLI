@@ -40,7 +40,7 @@ app.use(function(error, req, res, next) {
 
 if (require.main == module) {
   app.listen(CONFIG['PORT'], _ => {
-    console.log(`[+] App Server started on ${CONFIG['PORT']}`);
+    console.log(`[+] Service started on port: ${CONFIG['PORT']}`);
   });
 }
 

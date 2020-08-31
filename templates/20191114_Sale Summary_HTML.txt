@@ -151,8 +151,6 @@
 
 <div>&nbsp;</div>
 
-<div>PS: This is for Huddl Assignment, not actual order.</div>
-
         </td>
       </tr>
     </table>
