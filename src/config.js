@@ -4,7 +4,7 @@ require('dotenv').config();
 
 const config = {
   // Application configuration
-  PORT:       process.env.PORT || 3333,
+  PORT:       process.env.PORT || 9099,
   BASE_PATH:  '/api/v1',
   TIMESTAMP:  new Date().toTimeString(),
   EMAILS:       process.env.EMAILS && process.env.EMAILS.split(","),

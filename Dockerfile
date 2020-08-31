@@ -1,4 +1,4 @@
-FROM node:10.10.0-alpine
+FROM node:14.7.0-alpine
 
 WORKDIR /app
 
@@ -11,7 +11,7 @@ RUN npm install
 COPY . ./
 # COPY --chown=node:node . ./
 
-ENV APP_PORT 3333
+ENV APP_PORT 9099
 
 EXPOSE ${APP_PORT}
 
