@@ -1,18 +1,19 @@
 'use strict';
 
 const express = require('express');
+const logger = require('pino')();
 
-const { CONFIG } = require('../config');
+const config = require('../config');
 
 const healthCheckRouter = express.Router();
 
 healthCheckRouter.get('/healthz', (req, res) => {
-  console.log('healthcheck');
+  logger.info('healthcheck');
 
   const response = {
     success: true,
     health_check: true,
-    timestamp: CONFIG['TIMESTAMP']
+    timestamp: config['TIMESTAMP']
   };
   res.json(response);
 });

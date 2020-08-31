@@ -1,22 +1,25 @@
 'use strict';
 
 const sgMail = require('@sendgrid/mail');
+const logger = require('pino')();
 
-const { EMAIL_CONFIG } = require('../config');
+const config = require('../config');
 
 class EmailService {
+
   constructor() {
-    sgMail.setApiKey(EMAIL_CONFIG.SENDGRID_API_KEY);
+    sgMail.setApiKey(config.EMAIL.SENDGRID_API_KEY);
   }
 
+  // Async operation
   sendEmail(recipients, templateType, data = {}) {
     // "data" is optional parameter which might contain dynamic data
 
-    const templateId = EMAIL_CONFIG.TEMPLATES[templateType];
+    const templateId = config.EMAIL.TEMPLATE_ID;
 
     const emailOptions = {
       to: recipients,
-      from: EMAIL_CONFIG.NO_REPLY_EMAIL,
+      from: config.EMAIL.NO_REPLY_EMAIL,
       templateId: templateId,
       dynamic_template_data: this.getTemplateDynamicData(data)
     };
@@ -24,16 +27,16 @@ class EmailService {
     const promise = sgMail.send(emailOptions);
     promise
       .then(data => {
-        console.log('data', data);
+        logger.info('data', data);
       })
       .catch(error => {
-        console.error('error', error);
+        logger.error(error, 'error');
       });
   }
 
   getTemplateDynamicData(data) {
-    data['sender_name'] = EMAIL_CONFIG.SENDER_NAME;
-    data['sale_link'] = `${EMAIL_CONFIG.APP_URL}?sale_id=${data['sale_id']}`;
+    data['sender_name'] = config.EMAIL.SENDER_NAME;
+    data['sale_link'] = `${config.EMAIL.APP_URL}?id=${data['id']}`;
     return data;
   }
 
@@ -42,6 +45,7 @@ class EmailService {
       status: 'SENDING'
     };
   }
+
 }
 
 module.exports = {

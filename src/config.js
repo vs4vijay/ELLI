@@ -2,23 +2,32 @@
 
 require('dotenv').config();
 
-const CONFIG = {
-  PORT: process.env.PORT || 3333,
-  BASE_PATH: '/api/v1',
-  TIMESTAMP: new Date().toTimeString()
-};
+const config = {
+  // Application configuration
+  PORT:       process.env.PORT || 3333,
+  BASE_PATH:  '/api/v1',
+  TIMESTAMP:  new Date().toTimeString(),
+  EMAILS:       process.env.EMAILS && process.env.EMAILS.split(","),
 
-const EMAIL_CONFIG = {
-  SENDGRID_API_KEY: process.env.SENDGRID_API_KEY,
-  NO_REPLY_EMAIL: process.env.NO_REPLY_EMAIL,
-  TEMPLATES: {
-    SALE_SUMMARY: process.env.TEMPLATE_SALE_SUMMARY
+  // Kafka configuration
+  KAFKA: {
+    CLIENT_ID:  process.env.KAFKA_CLIENT_ID || 'default',
+    GROUP_ID:   process.env.KAFKA_GROUP_ID || 'email-service',
+    BROKERS:    process.env.KAFKA_BROKERS && process.env.KAFKA_BROKERS.split(","), // As brokers are expected in array
+    USERNAME:   process.env.KAFKA_USERNAME,
+    PASSWORD:   process.env.KAFKA_PASSWORD,
+    TOPIC:      process.env.KAFKA_TOPIC,
   },
-  APP_URL: process.env.APP_URL,
-  SENDER_NAME: process.env.SENDER_NAME
+
+  // Email related configuration
+  EMAIL: {
+    SENDGRID_API_KEY: process.env.SENDGRID_API_KEY,
+    NO_REPLY_EMAIL:   process.env.NO_REPLY_EMAIL,
+    TEMPLATE_ID:      process.env.EMAIL_TEMPLATE_ID,
+    APP_URL:          process.env.APP_URL,
+    SENDER_NAME:      process.env.SENDER_NAME
+  }
 };
 
-module.exports = {
-  CONFIG,
-  EMAIL_CONFIG
-};
+
+module.exports = config;

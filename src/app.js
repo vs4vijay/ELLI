@@ -2,9 +2,12 @@
 'use strict';
 
 const express = require('express');
+const logger = require('pino')();
 
 const { CONFIG } = require('./config');
+const { KafkaService } = require('./services');
 const { emailRouter, healthCheckRouter } = require('./controllers');
+const config = require('./config');
 
 const app = express();
 
@@ -19,8 +22,8 @@ app.get('/', function(req, res, next) {
 });
 
 // Adding routes
-app.use(CONFIG['BASE_PATH'], healthCheckRouter);
-app.use(CONFIG['BASE_PATH'], emailRouter);
+app.use(config['BASE_PATH'], healthCheckRouter);
+app.use(config['BASE_PATH'], emailRouter);
 
 // Adding 404 route
 app.get('*', (req, res) => {
@@ -28,7 +31,7 @@ app.get('*', (req, res) => {
 });
 
 app.use(function(error, req, res, next) {
-  console.error(error.stack);
+  logger.error(error.stack);
   // error.message
 
   const response = {
@@ -38,10 +41,43 @@ app.use(function(error, req, res, next) {
   res.status(500).json(response);
 });
 
-if (require.main == module) {
-  app.listen(CONFIG['PORT'], _ => {
-    console.log(`[+] Service started on port: ${CONFIG['PORT']}`);
+const startKafkaConsumer = async () => {
+  const kafkaService = new KafkaService();
+  
+  await kafkaService.startConsumer((topic, partition, message) => {
+    logger.info('Received Event');
+
+    const prefix = `${topic} [${partition} | ${message.offset}] / ${message.timestamp}\n`;
+    logger.debug('Prefix:', prefix, message);
+
+    const messageValue = message.value.toString();
+    const payload = JSON.parse(messageValue);
+
+    const {
+      metadata: { name }
+    } = payload;
+  
+    if (name) {
+      const recipients = config.EMAILS;
+      const templateType = 'SALE_SUMMARY';
+      const data = {
+        name: name,
+      };
+      emailService.sendEmail(recipients, templateType, data);
+
+    } else {
+      logger.error('Fields missing: name');
+    }
+
   });
+}
+
+if (require.main == module) {
+  app.listen(config['PORT'], _ => {
+    logger.info(`Service started on port: ${config['PORT']}`);
+  });
+
+  startKafkaConsumer().catch(e => logger.error(`Error: ${e.message}`, e));
 }
 
 process.on('SIGINT', function() {

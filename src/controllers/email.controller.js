@@ -1,26 +1,26 @@
 'use strict';
 
 const express = require('express');
+const logger = require('pino')();
 
 const { EmailService } = require('../services');
+const config = require('../config');
 
 const emailRouter = express.Router();
 const emailService = new EmailService();
 
 emailRouter.post('/mails', (req, res) => {
-  console.log('Sending email');
+  logger.info('Sending email');
 
   const {
-    email,
-    metadata: { name, sale_id }
+    metadata: { name }
   } = req.body;
 
-  if (email && name && sale_id) {
-    const recipients = [email];
+  if (name) {
+    const recipients = config.EMAILS;
     const templateType = 'SALE_SUMMARY';
     const data = {
       name: name,
-      sale_id: sale_id
     };
     emailService.sendEmail(recipients, templateType, data);
 
@@ -28,7 +28,7 @@ emailRouter.post('/mails', (req, res) => {
   } else {
     res.status(400).json({
       success: false,
-      error: 'Fields missing: email, name or sale_id'
+      error: 'Fields missing: name'
     });
   }
 });
