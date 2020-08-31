@@ -1,6 +1,6 @@
-# Email Service
+# Elli - Email Service
 
-A microservice to send out email to users
+A Microservice to send out emails using SendGrid 
 
 ---
 
