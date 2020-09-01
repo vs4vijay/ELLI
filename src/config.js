@@ -22,7 +22,7 @@ const config = {
   // Email related configuration
   EMAIL: {
     SENDGRID_API_KEY: process.env.SENDGRID_API_KEY,
-    NO_REPLY_EMAIL:   process.env.NO_REPLY_EMAIL,
+    FROM_EMAIL:       process.env.FROM_EMAIL,
     TEMPLATE_ID:      process.env.EMAIL_TEMPLATE_ID,
     APP_URL:          process.env.APP_URL,
     SENDER_NAME:      process.env.SENDER_NAME

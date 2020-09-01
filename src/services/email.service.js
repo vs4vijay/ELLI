@@ -12,32 +12,35 @@ class EmailService {
   }
 
   // Async operation
-  sendEmail(recipients, templateType, data = {}) {
+  sendEmail(recipients, { subject, body, templateId, templateData }) {
     // "data" is optional parameter which might contain dynamic data
-
-    const templateId = config.EMAIL.TEMPLATE_ID;
 
     const emailOptions = {
       to: recipients,
-      from: config.EMAIL.NO_REPLY_EMAIL,
-      templateId: templateId,
-      dynamic_template_data: this.getTemplateDynamicData(data)
-    };
+      from: config.EMAIL.FROM_EMAIL,
+    }
+
+    console.log('subject', subject);
+    console.log('body', body);
+    
+    // If templateId exists, include options for template
+    if(templateId) {
+      logger.info('Using Template');
+      emailOptions.templateId = templateId;
+      emailOptions.dynamic_template_data = templateData;
+    } else {
+      emailOptions.subject = subject; 
+      emailOptions.html = body; 
+    }
 
     const promise = sgMail.send(emailOptions);
     promise
       .then(data => {
-        logger.info('data', data);
+        logger.info(data, 'mail sent');
       })
       .catch(error => {
-        logger.error(error, 'error');
+        logger.error(error, 'error in sending mail');
       });
-  }
-
-  getTemplateDynamicData(data) {
-    data['sender_name'] = config.EMAIL.SENDER_NAME;
-    data['sale_link'] = `${config.EMAIL.APP_URL}?id=${data['id']}`;
-    return data;
   }
 
   buildResponse() {

@@ -59,14 +59,13 @@ const startKafkaConsumer = async () => {
   
     if (name) {
       const recipients = config.EMAILS;
-      const templateType = 'SALE_SUMMARY';
-      const data = {
-        name: name,
-      };
-      emailService.sendEmail(recipients, templateType, data);
+      const subject = 'sub 9';
+      const body = 'body 9';
+
+      emailService.sendEmail(recipients, { subject, body });
 
     } else {
-      logger.error('Fields missing: name');
+      logger.error('Fields missing');
     }
 
   });

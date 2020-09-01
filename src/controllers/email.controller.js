@@ -18,17 +18,14 @@ emailRouter.post('/mails', (req, res) => {
 
   if (name) {
     const recipients = config.EMAILS;
-    const templateType = 'SALE_SUMMARY';
-    const data = {
-      name: name,
-    };
-    emailService.sendEmail(recipients, templateType, data);
+
+    emailService.sendEmail(recipients, { subject: name, body: name });
 
     res.json(emailService.buildResponse());
   } else {
     res.status(400).json({
       success: false,
-      error: 'Fields missing: name'
+      error: 'Fields missing'
     });
   }
 });
