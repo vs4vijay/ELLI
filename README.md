@@ -7,10 +7,10 @@ A Microservice to send out emails using SendGrid
 ## Screenshots
 
 ### Email Template
-![](./screenshorts/EmailTemplate.png)
+![](./screenshots/EmailTemplate.png)
 
 ### Actual Email 
-![](./screenshorts/Email1.png)
+![](./screenshots/Email1.png)
 
 ---
 
@@ -20,7 +20,7 @@ Create a file `.env` with appropriate ENV. VARIABLES Values. Application reads t
 
 ```
 SENDGRID_API_KEY=""
-NO_REPLY_EMAIL="vs4vijay@gmail.com"
+FROM_EMAIL="vs4vijay@gmail.com"
 TEMPLATE_SALE_SUMMARY="d-8ee94062b404488094ee4d1b44fb3d0c"
 APP_URL="https://www.huddl.ai/features"
 SENDER_NAME="Vijay Soni"
@@ -35,7 +35,7 @@ SENDER_NAME="Vijay Soni"
 ### Run without Docker
 
 - `npm install` OR `yarn`
-- `node src/app.js`
+- `node src/app.js` OR `npm start` OR `npm start | pino-pretty`
 
 ### Run with Docker
 
@@ -107,5 +107,7 @@ curl -X POST -d '{"metadata": {}}'  "0.0.0.0:3333/api/v1/email" -v -H "Content-T
 
 curl -X POST -d '{"email":"vs4vijay@gmail.com","metadata": {"name":"Jay Kumar","sale_id":888}}'  "0.0.0.0:3333/api/v1/email" -H "Content-Type: application/json"
 
+
+class based controller
 
 ```

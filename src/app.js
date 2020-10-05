@@ -4,9 +4,8 @@
 const express = require('express');
 const logger = require('pino')();
 
-const { CONFIG } = require('./config');
-const { KafkaService } = require('./services');
 const { emailRouter, healthCheckRouter } = require('./controllers');
+const { KafkaService } = require('./services');
 const config = require('./config');
 
 const app = express();
@@ -44,7 +43,7 @@ app.use(function(error, req, res, next) {
 const startKafkaConsumer = async () => {
   const kafkaService = new KafkaService();
   
-  await kafkaService.startConsumer((topic, partition, message) => {
+  await kafkaService.startConsumer(({topic, partition, message}) => {
     logger.info('Received Event');
 
     const prefix = `${topic} [${partition} | ${message.offset}] / ${message.timestamp}\n`;
